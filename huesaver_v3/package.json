@@ -1,0 +1,12 @@
+{
+	"name" : "HueSaver",
+	"version" : "3.0.0",
+	"description" : "OS/Linux project van Jeroen van Os en Martijn de Caluwe",
+	"main" : "server.js",
+	"author" : "jbos5@student.avans.nl en mljcaluw@avans.nl",
+	"dependencies" : {
+		"body-parser" : "^1.8.3",
+		"express" : "^4.9.4",
+		"node-hue-api" : "^2.2.0"
+	}
+}
