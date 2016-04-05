@@ -56,4 +56,28 @@ if(run){
 	run = false;
 }
 
+var gpiopin = gpio.export(17, {
+   direction: "in",
+   ready: function() {
+   }
+});
+
+gpiopin.on("change", function(val) {
+   // value will report either 1 or 0 (number) when the value changes
+   console.log(val)
+});
+
+// Middelware, voor alle /api/* request
+app.all('*', function(req, res, next)
+{
+        // Log alle request
+        console.log( req.method + " " + req.url) ;
+        next();
+});
+
+var port = process.env.PORT || 8080;
+var server = app.listen( port , function() {
+        console.log('Listening server on port ' + server.address().port );
+});
+
 //hue.imegumii.space 367cac47bb5b4bf26fb8e3787818af
