@@ -12,12 +12,13 @@ app.set('deviceDescription', settings.deviceDescription);
 app.set('username', settings.username);
 
 var run = true;
+var on = true;
 
 var displayResult = function(result){
 	console.log(JSON.stringify(result, null, 2));
 };
 
-var displayUserResult = function(result){
+var saveUsernameResult = function(result){
 	console.log("Yay: " + JSON.stringify(result));
 	settings.username = JSON.stringify(result);
 	
@@ -36,7 +37,7 @@ var getNewUsername = function(){
 	var hue = new HueApi();
 	hue.registerUser(app.get('hueIP'), app.get('deviceDescription'))
 	.then(console.log('name'))
-	.then(displayUserResult)
+	.then(saveUsernameResult)
 	.fail(displayError)
 	.done();
 }
@@ -51,9 +52,13 @@ var makeConnectionWithBride = function(result){
 	api = new HueApi(app.get('hueIP'), app.get('username'));
 	api.getConfig();
 }
-if(run){
-	makeConnectionWithBride();
-	run = false;
+
+var lightInfo = function(){
+	console.log('Lights');
+	api.lights(function(err, lights) {
+		if (err) throw err;
+		displayResult(lights);
+	});
 }
 
 var gpiopin = gpio.export(17, {
@@ -62,9 +67,24 @@ var gpiopin = gpio.export(17, {
    }
 });
 
+if(run){
+	makeConnectionWithBride();
+	run = false;
+}
+lightInfo();
+
 gpiopin.on("change", function(val) {
    // value will report either 1 or 0 (number) when the value changes
    console.log(val)
+   if(val === 1){
+	   if(on){
+		   turnOn();
+	   } else {
+		   turnOff();
+	   }
+   }
+	on = !on;
+	   
 });
 
 // Middelware, voor alle /api/* request
