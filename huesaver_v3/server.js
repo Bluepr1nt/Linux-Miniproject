@@ -6,6 +6,7 @@ var fs = require('fs');
 var gpio = require('gpio');
 
 var api = HueApi;
+var lightState = api.lightState;
 var app = express();
 app.set('hueIP', settings.hueIP);
 app.set('deviceDescription', settings.deviceDescription);
@@ -78,14 +79,34 @@ gpiopin.on("change", function(val) {
    console.log(val)
    if(val === 1){
 	   if(on){
-		   api.turnOn();
+		   turnOn();
 	   } else {
-		   api.turnOff();
+		   turnOff();
 	   }
    }
 	on = !on;
 	   
 });
+
+function turnOn()
+{
+	var state = lightState.create().on().white(500, 100);
+
+	// --------------------------
+	// Using a promise
+	api.setLightState(0, state)
+		.done();
+}
+
+function turnOff()
+{
+	var state = lightState.create().off();
+
+	// --------------------------
+	// Using a promise
+	api.setLightState(0, state)
+		.done();
+}
 
 // Middelware, voor alle /api/* request
 app.all('*', function(req, res, next)
