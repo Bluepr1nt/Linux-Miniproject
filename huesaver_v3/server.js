@@ -56,7 +56,7 @@ var makeConnectionWithBride = function(result){
 var lightInfo = function(){
 	console.log('Lights');
 	api.lights(function(err, lights) {
-		if (err) throw err;
+		if (err) console.log(err);
 		displayResult(lights);
 	});
 }
@@ -78,9 +78,9 @@ gpiopin.on("change", function(val) {
    console.log(val)
    if(val === 1){
 	   if(on){
-		   turnOn();
+		   api.turnOn();
 	   } else {
-		   turnOff();
+		   api.turnOff();
 	   }
    }
 	on = !on;
