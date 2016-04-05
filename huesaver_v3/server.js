@@ -1,12 +1,13 @@
 var express = require('express');
 var settings = require('./settings.json');
 var parser = require('body-parser');
+var HueTemp = require('node-hue-api');
 var HueApi = require('node-hue-api').HueApi;
 var fs = require('fs');
 var gpio = require('gpio');
 
-var api = HueApi;
-var lightState = api.lightState;
+var api = HueApi
+var lightState = HueTemp.lightState;
 var app = express();
 app.set('hueIP', settings.hueIP);
 app.set('deviceDescription', settings.deviceDescription);
@@ -90,6 +91,7 @@ gpiopin.on("change", function(val) {
 
 function turnOn()
 {
+
 	var state = lightState.create().on().white(500, 100);
 
 	// --------------------------
