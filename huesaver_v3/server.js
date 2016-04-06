@@ -14,7 +14,7 @@ app.set('deviceDescription', settings.deviceDescription);
 app.set('username', settings.username);
 
 var run = true;
-var on = true;
+var on = false;
 
 var displayResult = function(result){
 	console.log(JSON.stringify(result, null, 2));
