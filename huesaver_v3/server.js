@@ -91,7 +91,7 @@ gpiopin.on("change", function(val) {
 function turnOn()
 {
 
-	var state = lightState.create().on().white(500, 100);
+	var state = lightState.create().on().colorLoop();
 
 	// --------------------------
 	// Using a promise
