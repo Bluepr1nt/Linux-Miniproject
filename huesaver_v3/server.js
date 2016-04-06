@@ -84,9 +84,8 @@ gpiopin.on("change", function(val) {
 	   } else {
 		   turnOff();
 	   }
-   }
-	on = !on;
-	   
+	  on = !on;
+   }	   
 });
 
 function turnOn()
