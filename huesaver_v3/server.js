@@ -96,7 +96,7 @@ function turnOn()
 
 	// --------------------------
 	// Using a promise
-	api.setLightState(0, state)
+	api.setLightState(1, state)
 		.done();
 }
 
@@ -106,7 +106,7 @@ function turnOff()
 
 	// --------------------------
 	// Using a promise
-	api.setLightState(0, state)
+	api.setLightState(1, state)
 		.done();
 }
 
