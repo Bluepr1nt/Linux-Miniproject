@@ -80,32 +80,32 @@ gpiopin.on("change", function(val) {
    console.log(val)
    if(val === 1){
 	   if(on){
-		   turnOn();
+		   turnOn(4);
 	   } else {
-		   turnOff();
+		   turnOff(4);
 	   }
 	  on = !on;
    }	   
 });
 
-function turnOn()
+function turnOn(light)
 {
 
 	var state = lightState.create().on().colorLoop();
 
 	// --------------------------
 	// Using a promise
-	api.setLightState(4, state)
+	api.setLightState(light, state)
 		.done();
 }
 
-function turnOff()
+function turnOff(light)
 {
 	var state = lightState.create().off();
 
 	// --------------------------
 	// Using a promise
-	api.setLightState(4, state)
+	api.setLightState(light, state)
 		.done();
 }
 
