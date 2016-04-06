@@ -35,10 +35,8 @@ var displayError = function(err) {
 };
 
 var getNewUsername = function(){
-	console.log('user');
 	var hue = new HueApi();
 	hue.registerUser(app.get('hueIP'), app.get('deviceDescription'))
-	.then(console.log('name'))
 	.then(saveUsernameResult)
 	.fail(displayError)
 	.done();
@@ -52,11 +50,10 @@ var makeConnectionWithBride = function(result){
 	}
 	
 	api = new HueApi(app.get('hueIP'), app.get('username'));
-	api.getConfig();
+	api.getLights();
 }
 
 var lightInfo = function(){
-	console.log('Lights');
 	api.lights(function(err, lights) {
 		if (err) console.log(err);
 		displayResult(lights);
