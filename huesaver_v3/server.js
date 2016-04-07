@@ -15,6 +15,10 @@ app.set('username', settings.username);
 
 var run = true;
 var on = true;
+var usenameAvailable = false;
+if(app.get('username').length >5){
+	usenameAvailable = true;
+}
 
 var displayResult = function(result){
 	console.log(JSON.stringify(result, null, 2));
@@ -72,6 +76,7 @@ if(run){
 }
 lightInfo();
 
+if(usenameAvailable){
 gpiopin.on("change", function(val) {
    // value will report either 1 or 0 (number) when the value changes
    console.log(val)
@@ -118,5 +123,8 @@ var port = process.env.PORT || 8080;
 var server = app.listen( port , function() {
         console.log('Listening server on port ' + server.address().port );
 });
+} else{
+	console.log('Got username. Please restart the application');
+}
 
 //hue.imegumii.space 367cac47bb5b4bf26fb8e3787818af
