@@ -26,7 +26,7 @@ var displayResult = function(result){
 
 var saveUsernameResult = function(result){
 	console.log("Yay: " + JSON.stringify(result));
-	settings.username = JSON.stringify(result);
+	settings.username = JSON.stringify(result).substring(2, result.length);
 	
 	fs.writeFile('./settings.json', JSON.stringify(settings, null, 2), function (err) {
 		if (err) return console.log(err)
